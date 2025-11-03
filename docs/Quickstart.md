@@ -7,7 +7,7 @@ This guide will not use the CDC service.
 
 1. Configure your AWS credential profile
 2. Have Docker and Docker Compose (or something compatible) installed 
-3. Have Neph installed
+3. Have Neph installed (using either the included wheel file or via `pip install neph`)
 
 ## Step 1 : Compose
 
