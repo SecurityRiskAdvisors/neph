@@ -1,9 +1,10 @@
 [tool.poetry]
 name = "neph"
 version = "1.0.0"
-description = ""
+description = "AWS attack path graphing tool"
 authors = ["Evan Perotti <evan.perotti@sra.io>"]
 readme = "README.md"
+license = "AGPL-3.0-only"
 
 [tool.poetry.dependencies]
 python = "^3.12"
