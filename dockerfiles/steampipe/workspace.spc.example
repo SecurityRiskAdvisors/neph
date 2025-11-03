@@ -1,0 +1,19 @@
+workspace "default" {
+    workspace_database = "local"
+    # install_dir = "bin/data"
+    cache = true
+    cache_ttl = 28800  # 8 hrs
+}
+
+options "database" {
+    cache =  true
+    cache_max_ttl = 28800  # 8 hrs
+    listen = "network"
+    port = 9193
+}
+
+options "general" {
+    telemetry = "none"
+    update_check = false
+    # log_level = "debug"
+}

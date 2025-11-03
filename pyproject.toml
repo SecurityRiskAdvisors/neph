@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "neph"
+version = "1.0.0"
+description = ""
+authors = ["Evan Perotti <evan.perotti@sra.io>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pyyaml = "^6.0.2"
+neo4j = "^5.28.1"
+requests = "^2.32.3"
+iamdata = "^0.1.202502201"
+pydantic-settings = "^2.8.0"
+fastapi = {extras = ["standard"], version = "^0.115.11"}
+
+[tool.poetry.group.dev.dependencies]
+black = "^25.1.0"
+sphinx = "^8.2.3"
+jupytext = "^1.17.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+neph = "neph.cli:main"

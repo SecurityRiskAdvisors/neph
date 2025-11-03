@@ -1,0 +1,170 @@
+{
+  "result": "ExplicitlyDenied",
+  "sameAccount": true,
+  "identityAnalysis": {
+    "result": "ExplicitlyDenied",
+    "allowStatements": [
+      {
+        "statement": {
+          "statementObject": {
+            "Effect": "Allow",
+            "Action": [
+              "*"
+            ],
+            "Resource": [
+              "*"
+            ]
+          },
+          "_index": 1,
+          "otherProps": {
+            "path": "Statement[0]"
+          }
+        },
+        "resourceMatch": true,
+        "actionMatch": true,
+        "conditionMatch": "Match",
+        "principalMatch": "Match",
+        "explain": {
+          "effect": "Allow",
+          "identifier": "1",
+          "matches": true,
+          "actionMatch": true,
+          "principalMatch": "Match",
+          "resourceMatch": true,
+          "conditionMatch": true,
+          "resources": [
+            {
+              "resource": "*",
+              "matches": true
+            }
+          ],
+          "actions": [
+            {
+              "action": "*",
+              "matches": true
+            }
+          ]
+        }
+      }
+    ],
+    "denyStatements": [
+      {
+        "statement": {
+          "statementObject": {
+            "Effect": "Deny",
+            "Action": [
+              "*"
+            ],
+            "Resource": [
+              "*"
+            ],
+            "Condition": {
+              "BoolIfExists": {
+                "aws:SecureTransport": "false"
+              }
+            }
+          },
+          "_index": 2,
+          "otherProps": {
+            "path": "Statement[1]"
+          }
+        },
+        "resourceMatch": true,
+        "actionMatch": true,
+        "conditionMatch": "Match",
+        "principalMatch": "Match",
+        "explain": {
+          "effect": "Deny",
+          "identifier": "2",
+          "matches": true,
+          "actionMatch": true,
+          "principalMatch": "Match",
+          "resourceMatch": true,
+          "conditionMatch": true,
+          "resources": [
+            {
+              "resource": "*",
+              "matches": true
+            }
+          ],
+          "actions": [
+            {
+              "action": "*",
+              "matches": true
+            }
+          ],
+          "conditions": [
+            {
+              "operator": "BoolIfExists",
+              "conditionKeyValue": "aws:SecureTransport",
+              "values": {
+                "value": "false",
+                "matches": true
+              },
+              "matches": true,
+              "matchedBecauseMissing": true
+            }
+          ]
+        }
+      }
+    ],
+    "unmatchedStatements": []
+  },
+  "scpAnalysis": {
+    "result": "Allowed",
+    "ouAnalysis": [
+      {
+        "orgIdentifier": "ou-12345",
+        "result": "Allowed",
+        "allowStatements": [
+          {
+            "statement": {
+              "statementObject": {
+                "Effect": "Allow",
+                "Action": "*",
+                "Resource": "*"
+              },
+              "_index": 1,
+              "otherProps": {
+                "path": "Statement[0]"
+              }
+            },
+            "resourceMatch": true,
+            "actionMatch": true,
+            "conditionMatch": "Match",
+            "principalMatch": "Match",
+            "explain": {
+              "effect": "Allow",
+              "identifier": "1",
+              "matches": true,
+              "actionMatch": true,
+              "principalMatch": "Match",
+              "resourceMatch": true,
+              "conditionMatch": true,
+              "resources": {
+                "resource": "*",
+                "matches": true
+              },
+              "actions": {
+                "action": "*",
+                "matches": true
+              }
+            }
+          }
+        ],
+        "denyStatements": [],
+        "unmatchedStatements": []
+      }
+    ]
+  },
+  "rcpAnalysis": {
+    "result": "Allowed",
+    "ouAnalysis": []
+  },
+  "resourceAnalysis": {
+    "result": "NotApplicable",
+    "allowStatements": [],
+    "denyStatements": [],
+    "unmatchedStatements": []
+  }
+}

@@ -1,0 +1,92 @@
+services:
+  simulator:
+    build:
+      dockerfile: simulator.dockerfile
+      context: dockerfiles
+      pull: true
+      tags:
+      - 'neph-sim:latest'
+    ports:
+    - '3000:3000'
+
+  neo4j:
+    # image: neo4j:5.26
+    build:
+      dockerfile: neo4j.dockerfile
+      context: dockerfiles
+      pull: true
+      tags:
+      - 'neph-neo4j:latest'
+    ports:
+    - '7474:7474'
+    - '7687:7687'
+    environment:
+      NEO4J_dbms_security_procedures_unrestricted: 'apoc.*'
+      NEO4J_PLUGINS: '["apoc","apoc-extended"]'
+      NEO4J_apoc_export_file_enabled: true
+      NEO4J_apoc_import_file_enabled: true
+      NEO4J_apoc_import_file_use__neo4j__config: true
+      NEO4J_apoc_trigger_enabled: true
+      NEO4J_apoc_trigger_refresh: 60000
+      NEO4J_AUTH: neo4j/pleasechangeme
+    volumes:
+    - ./neo4j:/data
+    # - ./jdbc:/plugins
+    depends_on:
+    - steampipe
+
+  cdc:
+    build:
+      # the dockerfile and context differ here because it needs to be
+      # relative to the repo root to copy the wheel into the build container
+      dockerfile: dockerfiles/cdc.dockerfile
+      context: .
+      pull: true
+      tags:
+      - 'neph-cdc:latest'
+    ports:
+    - '9002:9002'
+    environment:
+      NEPH_cdc_port: 9002
+    volumes:
+    - ./.env:/app/.env
+    depends_on:
+    - neo4j
+    - steampipe
+    # add a health check for dependencies before startup
+    command: 'bash -c "sleep 10 && neph cdc"'
+
+  steampipe:
+    build:
+      dockerfile: steampipe.dockerfile
+      context: dockerfiles
+      pull: true
+      tags:
+      - 'neph-steampipe:latest'
+    ports:
+    - '9193:9193'
+    volumes:
+    - type: bind
+      source: ${HOME}/.aws/credentials
+      target: /aws/credentials
+      read_only: true
+    - ./dockerfiles/steampipe/aws.spc:/home/steampipe/.steampipe/config/aws.spc
+    environment:
+      AWS_SHARED_CREDENTIALS_FILE: /aws/credentials
+      AWS_PROFILE: steampipe
+      STEAMPIPE_PASSWORD: pleasechangeme
+
+  jupyter:
+    build:
+      # same as CDC -> needs wheel
+      dockerfile: dockerfiles/jupyterlab.dockerfile
+      context: .
+      pull: true
+      tags:
+      - 'neph-jupyter:latest'
+    ports:
+    - '8888:8888'
+    environment:
+      # you can add a token to the end of this value to
+      # require the jupyterlab UI to require it to login
+      NOTEBOOK_ARGS: "--NotebookApp.token="

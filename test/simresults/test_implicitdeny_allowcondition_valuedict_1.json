@@ -1,0 +1,123 @@
+{
+  "result": "ImplicitlyDenied",
+  "sameAccount": true,
+  "identityAnalysis": {
+    "result": "ImplicitlyDenied",
+    "allowStatements": [],
+    "denyStatements": [],
+    "unmatchedStatements": [
+      {
+        "statement": {
+          "statementObject": {
+            "Effect": "Allow",
+            "Action": "iam:CreateUser",
+            "Resource": [
+              "arn:aws:iam::*:user/*"
+            ],
+            "Condition": {
+              "ArnEquals": {
+                "iam:PermissionsBoundary": "arn:aws:iam::*:policy/boundary"
+              }
+            }
+          },
+          "_index": 1,
+          "otherProps": {
+            "path": "Statement[0]"
+          }
+        },
+        "resourceMatch": true,
+        "actionMatch": true,
+        "conditionMatch": "NoMatch",
+        "principalMatch": "Match",
+        "explain": {
+          "effect": "Allow",
+          "identifier": "1",
+          "matches": false,
+          "actionMatch": true,
+          "principalMatch": "Match",
+          "resourceMatch": true,
+          "conditionMatch": false,
+          "resources": [
+            {
+              "resource": "arn:aws:iam::*:user/*",
+              "matches": true
+            }
+          ],
+          "actions": {
+            "action": "iam:CreateUser",
+            "matches": true
+          },
+          "conditions": [
+            {
+              "operator": "ArnEquals",
+              "conditionKeyValue": "iam:PermissionsBoundary",
+              "values": {
+                "value": "arn:aws:iam::*:policy/boundary",
+                "matches": false
+              },
+              "matches": false,
+              "failedBecauseMissing": true
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "scpAnalysis": {
+    "result": "Allowed",
+    "ouAnalysis": [
+      {
+        "orgIdentifier": "ou-12345",
+        "result": "Allowed",
+        "allowStatements": [
+          {
+            "statement": {
+              "statementObject": {
+                "Effect": "Allow",
+                "Action": "*",
+                "Resource": "*"
+              },
+              "_index": 1,
+              "otherProps": {
+                "path": "Statement[0]"
+              }
+            },
+            "resourceMatch": true,
+            "actionMatch": true,
+            "conditionMatch": "Match",
+            "principalMatch": "Match",
+            "explain": {
+              "effect": "Allow",
+              "identifier": "1",
+              "matches": true,
+              "actionMatch": true,
+              "principalMatch": "Match",
+              "resourceMatch": true,
+              "conditionMatch": true,
+              "resources": {
+                "resource": "*",
+                "matches": true
+              },
+              "actions": {
+                "action": "*",
+                "matches": true
+              }
+            }
+          }
+        ],
+        "denyStatements": [],
+        "unmatchedStatements": []
+      }
+    ]
+  },
+  "rcpAnalysis": {
+    "result": "Allowed",
+    "ouAnalysis": []
+  },
+  "resourceAnalysis": {
+    "result": "NotApplicable",
+    "allowStatements": [],
+    "denyStatements": [],
+    "unmatchedStatements": []
+  }
+}
