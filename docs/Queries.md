@@ -83,8 +83,6 @@ MATCH p=(n:Account)-[:LEAD{type:"CAN_ASSUME"}]->(m:IamRole)
 RETURN p
 ```
 
-Replace `1` with your number of choice
-
 ### Specific abusable permissions in role policy
 
 ```
