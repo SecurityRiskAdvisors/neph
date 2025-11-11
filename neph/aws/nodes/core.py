@@ -158,7 +158,7 @@ class ExternalAccountReferences(PropertiesTable):
         WITH *, apoc.text.regexGroups(policy, '(?<account>[0-9]{12})')[0] as accounts
         UNWIND accounts as account 
         WITH n, account, policy
-        WHERE not account in COLLECT {MATCH (a:OrganizationAccount) RETURN a.account_id}
+        WHERE not account in COLLECT {MATCH (a:OrganizationAccount) RETURN a.id}
         RETURN coalesce(n.arn, n.id, elementId(n)) as id, account, policy
         """
 

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "neph"
-version = "1.0.0"
+version = "1.0.1"
 description = "AWS attack path graphing tool"
 authors = ["Evan Perotti <evan.perotti@sra.io>"]
 readme = "README.md"
